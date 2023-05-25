@@ -15,6 +15,11 @@
 <body>
     <main>
         @include('layout.navbar')
+        @if (session('notification'))
+            <div class="alert alert-success">
+                {{ session('notification') }}
+            </div>
+        @endif
         <div class="container">
             @yield('content')
         </div>
