@@ -15,6 +15,12 @@
                     <a class="nav-link" aria-current="page" href="#">Manage
                         Users</a>
                 </li>
+                <li class="nav-item">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="nav-link" type="submit">Logout</button>
+                    </form>
+                </li>
             </ul>
             {{-- <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

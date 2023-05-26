@@ -35,7 +35,6 @@
                                 @method('DELETE')
                             </form>
                         </button>
-
                     </td>
                 </tr>
             @endforeach
