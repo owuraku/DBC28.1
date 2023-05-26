@@ -32,4 +32,9 @@ class Employee extends Model
     {
        return "{$this->firstname} {$this->middlename} {$this->lastname}";
     }
+
+     public function getImageURL()
+    {
+       return asset($this->image);
+    }
 }

@@ -146,7 +146,7 @@
             @isset($edit)
                 <div class="col-4">
                     <label for="">Current Image</label><br>
-                    <img src="{{ asset($employee->image) }}" width="200" height="200" alt="Current Avatar">
+                    <img src="{{ $employee->getImageURL() }}" width="200" height="200" alt="Current Avatar">
                 </div>
             @endisset
         </div>
