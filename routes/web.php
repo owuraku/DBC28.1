@@ -62,6 +62,6 @@ Route::get('/employees', [FirstController::class, 'myFirstControllerFunction']);
 //     })->name('destroy');
 // });
 
-
-Route::resource('/employees', EmployeeController::class);
+// auth middleware ensures that only authenticated users can visit route
+Route::resource('/employees', EmployeeController::class)->middleware('auth');
 // Route::get('/employees', [EmployeeController::class, 'index']);
