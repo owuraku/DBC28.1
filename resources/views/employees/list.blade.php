@@ -28,10 +28,27 @@
                             class="btn btn-outline-primary btn-sm">View</a>
                         <a type="button" href="{{ route('employees.edit', ['employee' => $employee->id]) }}"
                             class="btn btn-outline-success btn-sm">Edit</a>
-                        <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteEmployee(this)">
+                            Delete
+                            <form action="{{ route('employees.destroy', [$employee->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        </button>
+
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <script>
+        function deleteEmployee(buttonElement) {
+            const confirmed = confirm('Are you sure you want to delete this?');
+            if (confirmed) {
+                const form = buttonElement.querySelector('form');
+                form.submit();
+            }
+        }
+    </script>
 @endsection

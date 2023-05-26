@@ -71,6 +71,9 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        //create a link from storage/app/employee-images to public/employee-images
+        public_path('employee-images') => storage_path('app/employee-images'),
+
     ],
 
 ];

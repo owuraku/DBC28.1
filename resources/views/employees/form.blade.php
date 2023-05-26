@@ -3,12 +3,13 @@
 @section('title', 'Add New Employee')
 
 @php
+    
     $marital_statuses = ['married', 'single', 'divorced', 'seperated'];
     $positions = ['CEO', 'CTO', 'manager', 'other'];
 @endphp
 
 @section('content')
-    @if ($errors->any())
+    {{-- @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -16,11 +17,15 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+    @endif --}}
     <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
+        {{-- the csrf token is needed to avoid the 419 error when making a POST,PATCH/PUT,DELETE --}}
+        {{-- @csrf generates <input name="_token" value="{{csrf()}}" />  --}}
         @csrf
-        @isset($method)
-            @method($method)
+        @isset($edit)
+            {{-- the @method() directive is needed to spoof DELETE/PATCH/PUT since HTML forms cannot send such requests  --}}
+            @method('PATCH')
+            {{-- ^^ this generates <input name="_method" value="PATCH" /> --}}
         @endisset
         <div class="row mb-3">
             {{-- firstname --}}
@@ -28,7 +33,13 @@
                 <label for="firstname" class="form-label">Firstname</label>
                 <input type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname"
                     placeholder="Type your firstname" value="{{ request()->old('firstname', $employee->firstname) }}">
+
+                {{-- request()->old('firstname', $employee->firstname) ==> this code means when there is old data
+                       ( which is only present after a request fails validation and is returned to the previous request),
+                       that information will be used, if not the employee data will be used
+                    --}}
                 @error('firstname')
+                    {{-- there is a $message variable made available inside @error @enderror directive which is the  error message --}}
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
@@ -103,13 +114,15 @@
         <div class="mt-3">
             <label class="form-label">Select Gender</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                <input class="form-check-input" type="radio" name="gender" id="male" value="male"
+                    @checked(request()->old('marital_status', $employee->gender) == 'male')>
                 <label class="form-check-label" for="male">
                     Male
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="gender" id="female" value="female" checked>
+                <input class="form-check-input" type="radio" name="gender" id="female" value="female"
+                    @checked(request()->old('marital_status', $employee->gender) == 'female')>
                 <label class="form-check-label" for="female">
                     Female
                 </label>
@@ -119,12 +132,23 @@
             @enderror
         </div>
         {{-- image --}}
-        <div class="mt-3">
-            <label for="image" class="form-label">Choose Image</label>
-            <input type="file" name="image" id="image" class="form-control">
-            @error('image')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+
+
+
+        <div class="mt-3 row">
+            <div class="col">
+                <label for="image" class="form-label">Choose Image</label>
+                <input type="file" name="image" id="image" class="form-control">
+                @error('image')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            @isset($edit)
+                <div class="col-4">
+                    <label for="">Current Image</label><br>
+                    <img src="{{ asset($employee->image) }}" width="200" height="200" alt="Current Avatar">
+                </div>
+            @endisset
         </div>
 
         <div class="mt-3">
