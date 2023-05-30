@@ -5,18 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Employee extends Model
 {
     use HasFactory;
 
-    // protected $fillable = [
-    //     'firstname', 'lastname', 'dob', 'gender', 'position', 'marital_status', 'middlename', 'email', 'image'
-    // ];
 
-    protected $guarded = [];
+    // protected $guarded = [];
+    protected $fillable = ['email', 'firstname', 'lastname', 'dob', 'gender', 'position', 'image', 'marital_status', 'department_id'];
     // create read update delete -> CRUD
-    // protected $table = 'employeeeeees';
-
     //create
     // save()/ create()
     //read
@@ -36,5 +33,9 @@ class Employee extends Model
      public function getImageURL()
     {
        return asset($this->image);
+    }
+
+    public function department(){
+      return $this->belongsTo(Department::class, 'department_id');
     }
 }

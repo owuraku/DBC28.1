@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
@@ -31,7 +32,9 @@ class EmployeeController extends Controller
             ->min(100)
             ->max(12 * 1024)
             // ->dimensions(Rule::dimensions()->maxWidth(1000)->maxHeight(500))
-            ]
+        ],
+            "department_id" => 'required'
+
         ];
         # code...
     }
@@ -42,7 +45,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::all();
+        $employees = Employee::paginate(1);
          return view('employees.list', ['employees' => $employees]);
     }
 
@@ -56,7 +59,7 @@ class EmployeeController extends Controller
         return view('employees.form', [
             'employee' => new Employee,
             'action' => $action
-        ]);
+        ])->with('departments', Department::all());
         //
     }
 
