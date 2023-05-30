@@ -12,6 +12,10 @@
                         Employees</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ route('departments.index') }}">Manage
+                        Departments</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="#">Manage
                         Users</a>
                 </li>
