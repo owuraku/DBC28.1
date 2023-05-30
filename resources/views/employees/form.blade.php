@@ -3,7 +3,7 @@
 @section('title', 'Add New Employee')
 
 @php
-    
+
     $marital_statuses = ['married', 'single', 'divorced', 'seperated'];
     $positions = ['CEO', 'CTO', 'manager', 'other'];
 @endphp
@@ -133,7 +133,17 @@
         </div>
         {{-- image --}}
 
-
+        <div class="mt-3">
+            <label for="department_id" class="form-label">Department</label>
+            <select class="form-control" name="department_id" id="department_id">
+                @foreach ($departments as $department)
+                <option value="{{$department->id}}">{{$department->name}}</option>
+                @endforeach
+            </select>
+            @error('department_id')
+            <span class="error">{{$message}}</span>
+            @enderror
+          </div>
 
         <div class="mt-3 row">
             <div class="col">
