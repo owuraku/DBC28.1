@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FirstController;
 use Illuminate\Support\Facades\Route;
 
@@ -65,3 +66,4 @@ Route::get('/employees', [FirstController::class, 'myFirstControllerFunction']);
 // auth middleware ensures that only authenticated users can visit route
 Route::resource('/employees', EmployeeController::class)->middleware('auth');
 // Route::get('/employees', [EmployeeController::class, 'index']);
+Route::resource('/departments', DepartmentController::class)->middleware('auth');
