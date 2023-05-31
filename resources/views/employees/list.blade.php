@@ -40,7 +40,7 @@
             @endforeach
         </tbody>
     </table>
-
+    {{$employees->links()}}
     <script>
         function deleteEmployee(buttonElement) {
             const confirmed = confirm('Are you sure you want to delete this?');
