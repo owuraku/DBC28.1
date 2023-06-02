@@ -4,7 +4,9 @@
 
 @section('content')
     <h1>THE LIST OF DEPARTMENT</h1>
-    <a href="{{ route('departments.create') }}" class="btn btn-info btn-lg">Add Department</a>
+    @if (Auth::user()->is_admin == 1)
+    <a href="{{ route('departments.create') }}" class="btn btn-info btn-lg">Add Department</a>\
+    @endif
     <table class="table">
         <thead>
             <tr>
@@ -19,6 +21,7 @@
                     <td>
                         <a type="button" href="{{ route('departments.show', ['department' => $department->id]) }}"
                             class="btn btn-outline-primary btn-sm">View</a>
+                            @if (Auth::user()->is_admin == 1)
                         <a type="button" href="{{ route('departments.edit', ['department' => $department->id]) }}"
                             class="btn btn-outline-success btn-sm">Edit</a>
                         <button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteDepartment(this)">
@@ -28,6 +31,7 @@
                                 @method('DELETE')
                             </form>
                         </button>
+                            @endif
                     </td>
                 </tr>
             @endforeach
